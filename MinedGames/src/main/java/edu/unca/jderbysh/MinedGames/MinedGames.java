@@ -37,6 +37,8 @@ public final class MinedGames extends JavaPlugin {
         this.getCommand("message").setExecutor(new MinedGamesCommandExecutor(this));
         this.getCommand("score").setExecutor(new MinedGamesCommandExecutor(this));
         this.getCommand("join").setExecutor(new MinedGamesCommandExecutor(this));
+        this.getCommand("lobby").setExecutor(new MinedGamesCommandExecutor(this));
+        this.getCommand("start").setExecutor(new MinedGamesCommandExecutor(this));
     }
     
     /*

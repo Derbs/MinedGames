@@ -56,16 +56,18 @@ public class MinedGamesListener implements Listener {
     
     @EventHandler
     public void onBlockPickup(PlayerPickupItemEvent e) {
-    	if(e.getItem().getItemStack().getType().isBlock()) {
-	    	int score = e.getItem().getItemStack().getTypeId();
-	    	if(!plugin.scores.containsKey(e.getPlayer()) && plugin.gameRunning) {
-	    		plugin.getLogger().info(e.getPlayer().getDisplayName() + " is not in the mined game");
-	    		//e.getPlayer().sendMessage("You're not in the game.");
-	    	}
-	    	else {
-	    		plugin.scores.put(e.getPlayer(), plugin.scores.get(e.getPlayer())+score);
-	    		plugin.getLogger().info("picked up an item with score: " + score + " and gave that score to player " + e.getPlayer());
-	    		e.getPlayer().sendMessage("You had " + score + " points added to your score!");
+    	if(plugin.gameRunning) {
+	    	if(e.getItem().getItemStack().getType().isBlock()) {
+		    	int score = e.getItem().getItemStack().getTypeId();
+		    	if(!plugin.scores.containsKey(e.getPlayer())) {
+		    		plugin.getLogger().info(e.getPlayer().getDisplayName() + " is not in the mined game");
+		    		//e.getPlayer().sendMessage("You're not in the game.");
+		    	}
+		    	else {
+		    		plugin.scores.put(e.getPlayer(), plugin.scores.get(e.getPlayer())+score);
+		    		plugin.getLogger().info("picked up an item with score: " + score + " and gave that score to player " + e.getPlayer());
+		    		e.getPlayer().sendMessage("You had " + score + " points added to your score!");
+		    	}
 	    	}
     	}
     }
