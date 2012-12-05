@@ -1,0 +1,28 @@
+# This is a sample plugin.yml
+# For more information refer to http://wiki.bukkit.org/Plugin_YAML
+main: edu.unca.jderbysh.MinedGames.MinedGames
+name: ${project.name}
+version: ${project.version}
+author: SampleAuthor
+description: ${project.description}
+commands:
+  message:
+    description: set the sample message
+    usage: /<command>
+    permission: message
+  score:
+    description: display a players current score
+    usage: /<command>
+  join:
+    description: puts a player in the upcoming MinedGame.
+    usage: /<command>
+permissions:
+  message:
+    description: gives permission to change the welcome message
+    default: op
+  score:
+    description: gives separate permission to use the score command.  
+    default: true
+  join:
+    description: allows a player to join a MinedGames GAME.
+    default: true

@@ -1,0 +1,5 @@
+#This is a sample config.yml
+sample:
+  message: Hello Bukkit world.
+score:
+  test: 12
