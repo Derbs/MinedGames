@@ -49,7 +49,11 @@ public class MinedGamesCommandExecutor implements CommandExecutor {
         	}
 	        return true;
         } else if (command.getName().equals("start")){
-        	plugin.gameRunning = true;
+        	plugin.getLogger().info("Trying to start a Mined game");
+        	if(plugin.gameInit) {
+        		plugin.getLogger().info("Starting a Mined Game");
+        		plugin.gameRunning = true;
+        	}
         	return true;
     	} else if (command.getName().equals("lobby")) {
     		plugin.gameInit = true;
