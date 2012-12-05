@@ -22,6 +22,8 @@ public final class MinedGames extends JavaPlugin {
      */
 	
 	public HashMap<Player, Integer> scores = new HashMap<Player, Integer>();
+	public boolean gameRunning = false;
+	public boolean gameInit = false;
 
     @Override
     public void onEnable() {
@@ -54,7 +56,6 @@ public final class MinedGames extends JavaPlugin {
 				out.write("Testing");
 				out.newLine();
 				out.write("Twice!");
-				out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -72,6 +73,7 @@ public final class MinedGames extends JavaPlugin {
 			BufferedWriter out = new BufferedWriter(new FileWriter(records));
 			out.write(str);
 			out.newLine();
+			out.close();
 		} catch (IOException e) {
 			this.getLogger().warning("File io messed up in writeToRecords function");
 		}

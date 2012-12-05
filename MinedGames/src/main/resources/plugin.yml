@@ -16,6 +16,12 @@ commands:
   join:
     description: puts a player in the upcoming MinedGame.
     usage: /<command>
+  start:
+    description: starts the upcoming Mined Game
+    usage: /<command>
+  lobby:
+    description: creates a lobby for a Mined Game.  Lets players start a Mined Game.
+    usage: /<command>
 permissions:
   message:
     description: gives permission to change the welcome message
