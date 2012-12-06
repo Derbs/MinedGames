@@ -46,6 +46,8 @@ public final class MinedGames extends JavaPlugin {
         this.getCommand("join").setExecutor(new MinedGamesCommandExecutor(this));
         this.getCommand("lobby").setExecutor(new MinedGamesCommandExecutor(this));
         this.getCommand("start").setExecutor(new MinedGamesCommandExecutor(this));
+        this.getCommand("trade").setExecutor(new MinedGamesCommandExecutor(this));
+        
     }
     
     /*
@@ -105,6 +107,21 @@ public final class MinedGames extends JavaPlugin {
 		inventories = new HashMap<Player, ItemStack[]>();
 		scores = new HashMap<Player, Integer>();
 	}
+	
+	public void dirtyLoadPointVals() {
+		pointValues.put(Material.DIRT, 1);
+		pointValues.put(Material.COBBLESTONE, 3);
+		pointValues.put(Material.SAND, 1);
+		pointValues.put(Material.SANDSTONE, 2);
+		pointValues.put(Material.GOLD_ORE, 50);
+		pointValues.put(Material.IRON_ORE, 20);
+		pointValues.put(Material.COAL, 5);
+		pointValues.put(Material.REDSTONE, 7);
+		pointValues.put(Material.LOG, 5);
+		pointValues.put(Material.CLAY_BALL, 5);
+		pointValues.put(Material.DIAMOND, 200);
+	}
+	
 	
 	public void loadPointVals() {
 		this.getLogger().info("Pre-enabling some config values.");

@@ -22,6 +22,9 @@ commands:
   lobby:
     description: creates a lobby for a Mined Game.  Lets players start a Mined Game.
     usage: /<command>
+  trade:
+    description: Lets you trade 50 of your hard-earned points for an axe, shovel, or pick.
+    usage: /<command> tool
 permissions:
   message:
     description: gives permission to change the welcome message
@@ -31,4 +34,13 @@ permissions:
     default: true
   join:
     description: allows a player to join a MinedGames GAME.
+    default: true
+  start:
+    description: allows a player to start a MinedGame
+    default: true
+  lobby:
+    description: allows a player to create a MinedGame in waiting.
+    default: true
+  trade:
+    description: allows a player to trade points for tools during a game.
     default: true

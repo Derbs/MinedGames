@@ -1,7 +1,9 @@
 package edu.unca.jderbysh.MinedGames;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
@@ -64,7 +66,7 @@ public class MinedGamesCommandExecutor implements CommandExecutor {
         	return true;
     	} else if (command.getName().equals("lobby")) {
     		if(!plugin.gameInit){
-    			//this.plugin.loadPointVals();
+    			this.plugin.dirtyLoadPointVals();
 				plugin.gameInit = true;
 				plugin.getLogger().info("The next Mined Game will start soon.");
 				plugin.getServer().broadcastMessage(((Player)sender).getDisplayName() + " has created a new Mined Game. \nType /join to go to the lobby!");
@@ -76,6 +78,31 @@ public class MinedGamesCommandExecutor implements CommandExecutor {
     		}
     		return true;
     			
+    	} else if(command.getName().equals("trade")) {
+    		if(plugin.gameRunning && args.length > 1 && plugin.scores.get((Player)sender)>50) {
+    			if(args[1].equals("pick")) {
+    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-50);
+    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE,1));
+    				((Player)sender).sendMessage("You traded 50 points for a pick!");
+    			}
+    			else if(args[0].equals("shovel")) {
+    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-50);
+    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_SPADE,1));
+    				((Player)sender).sendMessage("You traded 50 points for a shovel!");
+    			}
+    			else if(args[1].equals("axe")) {
+    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-50);
+    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_AXE,1));
+    				((Player)sender).sendMessage("You traded 50 points for an axe!");
+    			}
+    			else {
+    				((Player)sender).sendMessage("Not a legitimate trade choice.");
+    			}
+    		}
+    		else {
+    			((Player)sender).sendMessage("You need to tell us what you want to trade for!  Options are 'pick', 'shovel', 'axe'");
+    		}
+    		return true;
     	} else {
     		return false;
         }

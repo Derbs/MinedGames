@@ -1,12 +1,12 @@
 #This is a comment.  Below is the sample plug in!
 sample:
   message: Hello Bukkit world.
-scoreCap: 25
+scoreCap: 100
 score:
   dirt: 1
   cobblestone: 3
   log: 5
-  sand: 1
+  sand: 25
   sandstone: 2
   gravel: 1
   iron_ore: 15

@@ -9,12 +9,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.world.WorldLoadEvent;;
-
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 /*
  * This is a sample event listener
  */
@@ -30,11 +31,13 @@ public class MinedGamesListener implements Listener {
         
         this.plugin = plugin;
     }
+    
+    
 
     /*
      * Send the sample message to all players that join
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.getPlayer().sendMessage(this.plugin.getConfig().getString("sample.message"));
         
@@ -45,7 +48,7 @@ public class MinedGamesListener implements Listener {
      * the entity you interact with, if it is a Creature it will give you the
      * creature Id.
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerInteract(PlayerInteractEntityEvent event) {
         final EntityType entityType = event.getRightClicked().getType();
         
@@ -55,11 +58,23 @@ public class MinedGamesListener implements Listener {
                 entityType.getTypeId()));
     }
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerThrowOut(PlayerDropItemEvent e) {
+    	if(plugin.gameRunning) {
+    		if(plugin.scores.containsKey(e.getPlayer())) {
+    			int score = plugin.pointValues.get(e.getItemDrop());
+    			plugin.getLogger().info(e.getPlayer().getDisplayName() + " threw out an item.");
+    			e.getPlayer().sendMessage("You just threw out " + e.getItemDrop().getItemStack().getType().name() + " and lost " + score + " points!");
+    			plugin.scores.put(e.getPlayer(), plugin.scores.get(e.getPlayer())-score);
+    		}
+    	}
+    }
+    
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockPickup(PlayerPickupItemEvent e) {
-	    if(e.getItem().getItemStack().getType().isBlock()) {
+	    if(plugin.gameRunning && e.getItem().getItemStack().getType().isBlock()) {
 		   	int score = e.getItem().getItemStack().getTypeId();
-		   	if(!plugin.scores.containsKey(e.getPlayer()) && plugin.gameRunning) {
+		   	if(!plugin.scores.containsKey(e.getPlayer())) {
 		   		
 		   	}
 		   	else {
