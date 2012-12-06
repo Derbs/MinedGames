@@ -60,9 +60,9 @@ public class MinedGamesListener implements Listener {
     
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerThrowOut(PlayerDropItemEvent e) {
-    	if(plugin.gameRunning) {
+    	if(plugin.gameRunning  && plugin.pointValues.containsKey(e.getItemDrop().getItemStack().getType())) {
     		if(plugin.scores.containsKey(e.getPlayer())) {
-    			int score = plugin.pointValues.get(e.getItemDrop());
+    			int score = plugin.pointValues.get(e.getItemDrop().getItemStack().getType());
     			plugin.getLogger().info(e.getPlayer().getDisplayName() + " threw out an item.");
     			e.getPlayer().sendMessage("You just threw out " + e.getItemDrop().getItemStack().getType().name() + " and lost " + score + " points!");
     			plugin.scores.put(e.getPlayer(), plugin.scores.get(e.getPlayer())-score);
@@ -72,8 +72,8 @@ public class MinedGamesListener implements Listener {
     
     @EventHandler(priority = EventPriority.HIGH)
     public void onBlockPickup(PlayerPickupItemEvent e) {
-	    if(plugin.gameRunning && e.getItem().getItemStack().getType().isBlock()) {
-		   	int score = e.getItem().getItemStack().getTypeId();
+	    if(plugin.gameRunning && plugin.pointValues.containsKey(e.getItem().getItemStack().getType())) {
+		   	int score = plugin.pointValues.get(e.getItem().getItemStack().getType());
 		   	if(!plugin.scores.containsKey(e.getPlayer())) {
 		   		
 		   	}

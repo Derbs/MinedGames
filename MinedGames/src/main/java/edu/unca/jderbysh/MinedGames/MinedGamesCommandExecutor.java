@@ -79,24 +79,28 @@ public class MinedGamesCommandExecutor implements CommandExecutor {
     		return true;
     			
     	} else if(command.getName().equals("trade")) {
-    		if(plugin.gameRunning && args.length > 1 && plugin.scores.get((Player)sender)>50) {
-    			if(args[1].equals("pick")) {
-    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-50);
-    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE,1));
-    				((Player)sender).sendMessage("You traded 50 points for a pick!");
-    			}
-    			else if(args[0].equals("shovel")) {
-    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-50);
-    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_SPADE,1));
-    				((Player)sender).sendMessage("You traded 50 points for a shovel!");
-    			}
-    			else if(args[1].equals("axe")) {
-    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-50);
-    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_AXE,1));
-    				((Player)sender).sendMessage("You traded 50 points for an axe!");
-    			}
-    			else {
-    				((Player)sender).sendMessage("Not a legitimate trade choice.");
+    		if(plugin.gameRunning && args.length == 2) {
+    			if(plugin.scores.get((Player)sender)>plugin.getConfig().getInt("tradeVal")) {
+	    			if(args[1].equals("pick")) {
+	    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-plugin.getConfig().getInt("tradeVal"));
+	    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE,1));
+	    				((Player)sender).sendMessage("You traded 50 points for a pick!");
+	    			}
+	    			else if(args[1].equals("shovel")) {
+	    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-plugin.getConfig().getInt("tradeVal"));
+	    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_SPADE,1));
+	    				((Player)sender).sendMessage("You traded 50 points for a shovel!");
+	    			}
+	    			else if(args[1].equals("axe")) {
+	    				plugin.scores.put((Player)sender,plugin.scores.get((Player)sender)-plugin.getConfig().getInt("tradeVal"));
+	    				((Player)sender).getInventory().addItem(new ItemStack(Material.DIAMOND_AXE,1));
+	    				((Player)sender).sendMessage("You traded 50 points for an axe!");
+	    			}
+	    			else {
+	    				((Player)sender).sendMessage("Not a legitimate trade choice.");
+	    			}
+    			} else {
+    				((Player)sender).sendMessage("You need to have more points.");
     			}
     		}
     		else {

@@ -2,6 +2,7 @@
 sample:
   message: Hello Bukkit world.
 scoreCap: 100
+tradeVal: 10
 score:
   dirt: 1
   cobblestone: 3
