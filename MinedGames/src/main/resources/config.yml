@@ -1,5 +1,29 @@
-#This is a sample config.yml
+#This is a comment.  Below is the sample plug in!
 sample:
   message: Hello Bukkit world.
+scoreCap: 25
 score:
-  test: 12
+  dirt: 1
+  cobblestone: 3
+  log: 5
+  sand: 1
+  sandstone: 2
+  gravel: 1
+  iron_ore: 15
+  gold_ore: 50
+  coal: 10
+  diamond: 200
+  redstone: 25
+  clay_ball: 3
+#monster items
+  arrow: 10
+  string: 15
+  feather: -5
+  bone: 10
+  raw_beef: -5
+  raw_chicken: -5
+  rotten_flesh: 10
+  ender_pearl: 25
+  pork: -5
+  leather: -5
+  egg: 100

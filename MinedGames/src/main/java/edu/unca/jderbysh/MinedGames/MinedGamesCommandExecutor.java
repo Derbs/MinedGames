@@ -41,28 +41,43 @@ public class MinedGamesCommandExecutor implements CommandExecutor {
 	        	}
 	        	else {
 	        		((Player)sender).sendMessage("You have joined a Mined Game!");
-	        		plugin.scores.put((Player)sender, 0);
+	        		plugin.addPlayer((Player)sender);
 	        	}
         	}
         	else {
-        		plugin.getLogger().info("The Mined Game has not started just yet.");
+        		if(plugin.gameRunning){
+        			((Player)sender).sendMessage("The game has already started.");
+        		}
+        		else if(!plugin.gameInit){
+        			((Player)sender).sendMessage("There is no lobby to join!");
+        		}
+        		plugin.getLogger().info(((Player)sender).getDisplayName() + " could not join the MinedGame.");
         	}
 	        return true;
         } else if (command.getName().equals("start")){
-        	plugin.getLogger().info("Trying to start a Mined game");
+        	plugin.getLogger().info("Trying to start a Mined Game");
         	if(plugin.gameInit) {
+        		sender.getServer().broadcastMessage("Starting a Mined Game!");
         		plugin.getLogger().info("Starting a Mined Game");
         		plugin.gameRunning = true;
         	}
         	return true;
     	} else if (command.getName().equals("lobby")) {
-    		plugin.gameInit = true;
-    		plugin.getLogger().info("The next Mined Game will start soon.");
-    		plugin.getServer().broadcastMessage(((Player)sender).getDisplayName() + "has created a new Mined Game. \nType /join to go to the lobby!");
+    		if(!plugin.gameInit){
+    			//this.plugin.loadPointVals();
+				plugin.gameInit = true;
+				plugin.getLogger().info("The next Mined Game will start soon.");
+				plugin.getServer().broadcastMessage(((Player)sender).getDisplayName() + " has created a new Mined Game. \nType /join to go to the lobby!");
+				plugin.addPlayer((Player)sender);
+    		}
+    		else{
+    			plugin.getLogger().info(((Player)sender).getDisplayName() + " tried to create another lobby.");
+    			((Player)sender).sendMessage("Sorry, there's already a lobby created!");
+    		}
     		return true;
+    			
     	} else {
-        	return false;
+    		return false;
         }
     }
-
 }

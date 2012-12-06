@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.world.WorldLoadEvent;;
 
 /*
  * This is a sample event listener
@@ -56,19 +57,22 @@ public class MinedGamesListener implements Listener {
     
     @EventHandler
     public void onBlockPickup(PlayerPickupItemEvent e) {
-    	if(plugin.gameRunning) {
-	    	if(e.getItem().getItemStack().getType().isBlock()) {
-		    	int score = e.getItem().getItemStack().getTypeId();
-		    	if(!plugin.scores.containsKey(e.getPlayer())) {
-		    		plugin.getLogger().info(e.getPlayer().getDisplayName() + " is not in the mined game");
-		    		//e.getPlayer().sendMessage("You're not in the game.");
-		    	}
-		    	else {
-		    		plugin.scores.put(e.getPlayer(), plugin.scores.get(e.getPlayer())+score);
-		    		plugin.getLogger().info("picked up an item with score: " + score + " and gave that score to player " + e.getPlayer());
-		    		e.getPlayer().sendMessage("You had " + score + " points added to your score!");
-		    	}
-	    	}
-    	}
+	    if(e.getItem().getItemStack().getType().isBlock()) {
+		   	int score = e.getItem().getItemStack().getTypeId();
+		   	if(!plugin.scores.containsKey(e.getPlayer()) && plugin.gameRunning) {
+		   		
+		   	}
+		   	else {
+		   		
+		   		plugin.scores.put(e.getPlayer(), plugin.scores.get(e.getPlayer())+score);
+		   		plugin.getLogger().info("picked up an item with score: " + score + " and gave that score to player " + e.getPlayer());
+		   		e.getPlayer().sendMessage("You had " + score + " points added to your score!");
+		   		if(plugin.scores.get(e.getPlayer())> plugin.getConfig().getInt("scoreCap")) {
+		   			e.getPlayer().getServer().broadcastMessage(e.getPlayer().getDisplayName() + " has won the game with " + plugin.scores.get(e.getPlayer()) + " points!");
+		   			plugin.gameOver();
+	    			plugin.rewardPlayer(e.getPlayer());
+		   		}
+		   	}
+	    }
     }
 }
